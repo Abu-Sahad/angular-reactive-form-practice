@@ -1,50 +1,63 @@
-
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export interface Food {
   value: string;
   viewValue: string;
 }
 
+export interface Gender {
+  value: string;
+}
+
 @Component({
   selector: 'app-form-group',
   templateUrl: './form-group.component.html',
-  styleUrl: './form-group.component.css',
+  styleUrls: ['./form-group.component.css'],
   providers: [DatePipe]
 })
-export class FormGroupComponent {
+export class FormGroupComponent implements OnInit {
 
-  userForm: FormGroup = new FormGroup({
-    id: new FormControl('0'),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
-    designation: new FormControl(''),
-    nationality: new FormControl(''),
-    dateOfBirth: new FormControl(''),
-    gender: new FormControl(''),
-    organization: new FormControl(''),
-    image: new FormControl(''),
-  })
+  userForm!: FormGroup;
 
-  constructor(private datePipe: DatePipe) { }
   foods: Food[] = [
     { value: 'america-101', viewValue: 'American' },
     { value: 'canadian-102', viewValue: 'Canadian' },
     { value: 'indian-103', viewValue: 'Indian' },
     { value: 'other', viewValue: 'Other' },
   ];
+  genders: Gender[] = [
+    { value: 'Male' },
+    { value: 'Female' },
+  ];
 
+  constructor(private fb: FormBuilder, private datePipe: DatePipe) { }
 
-  onSubmit() {
-    const dateOfBirthControl = this.userForm.get('dateOfBirth')?.value;
-    const formattedDate = this.datePipe.transform(dateOfBirthControl, 'MM/dd/yyyy');
-    console.log(formattedDate);
-    this.userForm.get('dateOfBirth')!.setValue(formattedDate);
-    console.log(this.userForm.value);
+  ngOnInit() {
+    this.userForm = this.fb.group({
+      id: ['0'],
+      firstName: [''],
+      lastName: [''],
+      email: [''],
+      designation: [''],
+      nationality: [''],
+      dateOfBirth: [''],
+      gender: [''],
+      organization: [''],
+      nrb: Boolean,
+      passport: [''],
+      countryOfResidence: [''],
+      image: [''],
+    });
   }
 
-
+  onSubmit() {
+    const dateOfBirthControl = this.userForm.get('dateOfBirth');
+    if (dateOfBirthControl) {
+      const formattedDate = this.datePipe.transform(dateOfBirthControl.value, 'MM/dd/yyyy');
+      dateOfBirthControl.setValue(formattedDate); // Set the formatted date as the value
+    }
+    console.log(this.userForm.value);
+  }
 }
