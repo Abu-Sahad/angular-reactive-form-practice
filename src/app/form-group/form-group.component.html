@@ -1,0 +1,62 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="w-[75%] mx-auto mt-10 shadow-xl bg-gray-200 p-5 rounded-md">
+        <h3 class="text-center text-green-500">Sign Up Form </h3>
+        <div class="flex gap-4 w-full">
+            <div class="flex flex-col w-1/2">
+                <label for="firstName">First Name </label>
+                <input type="text" name="category" formControlName="firstName"
+                    class="bg-gray-50 px-2 py-2 my-1 outline-none border border-1 rounded" />
+            </div>
+            <div class="flex flex-col w-1/2">
+                <label for="lastName">Last Name </label>
+                <input type="text" name="category" formControlName="lastName"
+                    class="bg-gray-50 px-2 py-2 my-1 outline-none border border-1 rounded" />
+            </div>
+        </div>
+        <div class="flex gap-4 w-full">
+            <div class="flex flex-col w-1/2">
+                <label for="email">Email </label>
+                <input type="text" name="category" formControlName="email"
+                    class="bg-gray-50 px-2 py-2 my-1 outline-none border border-1 rounded" />
+            </div>
+            <div class="flex flex-col w-1/2">
+                <label for="designation">Designation</label>
+                <input type="text" name="category" formControlName="designation"
+                    class="bg-gray-50 px-2 py-2 my-1 outline-none border border-1 rounded" />
+            </div>
+        </div>
+        <div class="flex gap-4 w-full">
+            <div class="flex flex-col w-1/2">
+                <label for="dateOfBirth">Date of Birth </label>
+                <input type="text" name="category" formControlName="dateOfBirth"
+                    class="bg-gray-50 px-2 py-2 my-1 outline-none border border-1 rounded" />
+            </div>
+            <div class="flex flex-col w-1/2">
+                <label for="Organization">Organization Name</label>
+                <input type="text" name="category" formControlName="organization"
+                    class="bg-gray-50 px-2 py-2 my-1 outline-none border border-1 rounded" />
+            </div>
+        </div>
+
+
+        <div class="flex gap-4 w-full mt-2">
+            <div class="flex flex-col w-1/2">
+                <label for="favoriteFood">Nationality</label>
+                <mat-form-field>
+                    <mat-select formControlName="nationality">
+                        <mat-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+
+
+        <div class="text-center mt-10">
+            <button type="submit" class="bg-green-600 w-full py-2 text-white rounded-md">Submit</button>
+        </div>
+    </div>
+
+</form>
